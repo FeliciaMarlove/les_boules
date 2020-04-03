@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>E-shop de boules de Noël</title>
+</head>
+<body onload="domCreate()" class="bodyShop">
+    <div class="topShop" >
+        <img src="./images/shopping-cart.png" height="50px" width="50px" style="padding: 5px" id="cartIcon">
+        <div id="cartText">
+            Nombre d'articles :
+            <bdi id="cartTotal"></bdi>
+            <br>
+            Total :
+            <bdi id="cartSomme"></bdi> €
+        </div>
+
+    </div>
+    <div class="tableContainer">
+        <div id="articles" class="articles"> </div>
+    </div>
+</body>
+<script src="eshop.js"></script>
+</html>

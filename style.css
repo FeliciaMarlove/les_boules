@@ -1,0 +1,142 @@
+.formulaire {
+    font-weight: bold;
+    grid-area: f;
+    padding: 10px;
+    background-color: white;
+    opacity: 92%;
+}
+
+.tableContainer {
+    grid-area: tc;
+}
+
+.topShop {
+    grid-area: ts;
+    display: grid;
+    grid-template-columns: 2fr 2fr 0.5fr 1fr 0.5fr;
+    grid-template-areas:
+        " . . i t .";
+}
+
+#cartIcon {
+    grid-area: i;
+}
+
+#cartText {
+    grid-area: t;
+    font-weight: bold;
+}
+
+.articles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*justify-content: space-evenly;
+    align-content: space-around;*/
+    justify-content: center;
+    align-content: center;
+    grid-area: tc;
+}
+
+.article {
+    flex-shrink: 1;
+    background-color: white;
+    text-align: center;
+    border-style: solid;
+    border-color: #1b1e21;
+    padding: 10px;
+    margin: 8px
+}
+
+.bodyHome {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+            " t t t t "
+            " . . . . "
+            " . f f . "
+            " . f f . "
+            " . f f . "
+            " . . . . ";
+}
+
+.empty {
+    grid-area: e;
+}
+
+.bodyShop {
+    display: grid;
+    grid-template-areas:
+        " ts ts ts"
+        " tc tc tc";
+}
+
+body {
+    font-family: Verdana;
+    font-size: 14px;
+    /*background-image: url("ball.jpg");
+     background-size: cover;*/
+    background-color: brown;
+}
+
+button {
+    background-color: white;
+}
+
+h2 {
+    text-align: center;
+    color : white;
+    font-size: 42px;
+}
+
+#local-option, .dropdown, input {
+    text-align-all: right;
+}
+
+.bandeau {
+    background-color: maroon;
+    grid-area: t;
+}
+
+.tip {
+    color: darkred;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+@media (max-width: 640px) {
+    body {
+    }
+    .bodyHome {
+        grid-template-rows: 0.5fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 4fr;
+        grid-template-areas:
+                "t"
+                "."
+                "f"
+                "f"
+                "f"
+                "."
+                ".";
+    }
+    .bodyShop {
+    }
+    #local-option, .dropdown{
+        font-size: 12px;
+    }
+    h2 {
+        font-size: 26px;
+    }
+    .topShop {
+        grid-template-columns: 0.5fr 0.5fr 0.5fr 2fr 1fr;
+        grid-template-areas:
+                " . . i t .";
+    }
+    .article {
+        margin: 0px;
+        transform: scale(0.7, 0.7);
+        padding: 0px;
+    }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>E-shop de boules de Noël</title>
+</head>
+<body onload="readLocalities()" class="bodyHome">
+<div class="bandeau">
+    <h2>E-shop de boules de Noël</h2>
+</div>
+<div class="formulaire">
+    <form action="" id="formulaire">
+        <p>
+            <label for="email">Email *</label>
+            <input type="text" name="email" id="email" required oninput="doStateMailCheck()">
+            <bdi id="stateEmail"></bdi>
+        </p>
+        <p>
+            <bdi id="tip-email" class="tip"></bdi>
+        </p>
+        <p>
+            <label for="pwd">Password *</label>
+            <input type="password" name="mot de passe" id="pwd" required oninput="doStatePasswordCheck()">
+            <bdi id="statePassword"></bdi>
+        </p>
+        <p>
+            <bdi id="tip-pwd" class="tip"></bdi>
+        </p>
+        <p>
+        <p>
+            <label for="pwd2">Vérification</label>
+            <input type="password" name="ver mot de passe" id="pwd2" required oninput="doStatePassword2Check()">
+            <bdi id="statePassword2"></bdi>
+        </p>
+        <p>
+            <bdi id="tip-pwd2" class="tip"></bdi>
+        </p>
+        <p>
+        <p>
+            <label for="name">Nom Prénom *</label>
+            <input type="text" name="nom" id="name" required oninput="doStateNomPrenomCheck()">
+            <bdi id="stateName"></bdi>
+        </p>
+        <p>
+            <bdi id="tip-nom" class="tip"></bdi>
+        </p>
+        <p>
+        <p>
+            <label for="address">Adresse *</label>
+            <input type="text" name="adresse" id="address" required oninput="doStateAddressCheck()">
+            <bdi id="stateAddress"></bdi>
+        </p>
+        <p>
+            <bdi id="tip-adresse" class="tip"></bdi>
+        </p>
+        <p>
+            <label for="country">Pays</label>
+            <select name="pays" id="country" >
+                <option value="Belgique" class="dropdown">
+                    Belgique
+                </option>
+            </select>
+        </p>
+        <p>
+            <bdi id="tip-pays" class="tip"></bdi>
+        </p>
+        <p>
+            <label for="local-dropdown">Localité *</label>
+            <select id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()">
+            </select>
+            <bdi id="stateLocality"></bdi>
+        </p>
+        <p>
+            <bdi id="tip-localite" class="tip"></bdi>
+        </p>
+        <p>
+            <input type="checkbox" name="conditions générales" id="conditions">
+            <label for="conditions">Accepter les conditions générales</label>
+        </p>
+        <p>
+            <bdi id="tip-conditions" class="tip"></bdi>
+        </p>
+
+        <p><button type="button" value="Send" id="send" onclick="doValidateForm()">Inscription</button></p>
+    </form>
+</div>
+
+
+</body>
+<script src="login.js"></script>
+</html>
