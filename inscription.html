@@ -11,7 +11,7 @@
     <h2>E-shop de boules de Noël</h2>
 </div>
 <div class="formulaire">
-    <form action="" id="formulaire">
+    <form action="./inscription.php" method="POST" id="formulaire">
         <p>
             <label for="email">Email *</label>
             <input type="text" name="email" id="email" required oninput="doStateMailCheck()">
@@ -83,11 +83,11 @@
             <bdi id="tip-conditions" class="tip"></bdi>
         </p>
 
-        <p><button type="button" value="Send" id="send" onclick="doValidateForm()">Inscription</button></p>
+        <p><button type="submit" value="Submit" id="send" onclick="doValidateForm()">Inscription</button></p>
     </form>
 </div>
 
 
 </body>
-<script src="login.js"></script>
+<script src="inscription.js"></script>
 </html>

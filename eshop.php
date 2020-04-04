@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>E-shop de boules de Noël</title>
+    <?php
+        require_once('./utilitaires/MyPdo.service.php');
+        require_once('./utilitaires/LoadBoules.service.php');
+        try {
+            // récupérer une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+            $connexion = MyPdo::getInstance();
+            // charger les boules dans la base de données si la table est vide
+            $getBoules = LoadBoules::chargerXML('https://www.zeus2025.be/exe/boutique.xml');
+        } catch(PDOException $e) {
+            exit("Erreur ouverture BD : ".$e->getMessage());
+        } catch (Exception $e) {
+            exit("Le site a rencontré un problème : ".$e->getMessage());
+        }
+    ?>
 </head>
 <body onload="domCreate()" class="bodyShop">
     <div class="topShop" >

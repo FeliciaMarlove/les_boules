@@ -30,7 +30,7 @@ function doValidateForm() {
         allTips.item(i).innerHTML = '';
     }
     if (doCheckEmail() && doCheckName() && doCheckPwd() && doMockupLogin() && doCheckAddress() && doCheckConditions() && doCheckLocality()) {
-        location.href='eshop.html';
+         // location.href='eshop.php'; -> géré par php
     } else {
         showMistakes();
     }

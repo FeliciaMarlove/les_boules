@@ -1,0 +1,17 @@
+dans load boules pour récup les tags sur xml
+
+// $parentTag = $xml->getName(); // sort "boutique" (tag premier niveau)
+
+					// $tags = [];
+					// foreach($xml->children()->children() as $child) {
+					// 	//echo $child->getName();
+					// 	array_push($tags, $child->getName()) ;
+					// 	//$index++;
+					// }
+
+					// print_r($tags);
+
+					// foreach ($tags as $key=>$tag) {
+					// 	echo $tag;
+					// 	echo $key;
+					// }
