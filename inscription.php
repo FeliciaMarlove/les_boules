@@ -16,7 +16,6 @@
 			echo 'alert("Cette adresse e-mail existe déjà, cliquez sur Se connecter pour accéder à votre compte.")';
 			echo '</script>';
 			echo '<script type="text/javascript"> window.location = \'./inscription.html\'; </script>';
-			//header('Location: ./inscription.html');
 		} else {
 			$date = new DateTime();
 			$timeStamp = $date->getTimestamp();
