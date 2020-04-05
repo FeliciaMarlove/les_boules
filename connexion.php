@@ -9,5 +9,7 @@
 		exit("Erreur ouverture BD : ".$e->getMessage());
 	} catch (Exception $e) {
 		exit("Le site a rencontré un problème : ".$e->getMessage());
+	} finally {
+		$connexion = null;
 	}
 ?>

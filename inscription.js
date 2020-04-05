@@ -20,7 +20,7 @@ let passwordsMatch = false;
 const ok = '<img src="images/checked.png" alt="Ok" style="width:12px;height:12px;">';
 const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12px;">';
 const localites = 'https://www.zeus2025.be/exe/localites.json';
-let defautChoixLocalite = 'Choisissez votre localité dans la liste';
+const defautChoixLocalite = 'Choisissez votre localité dans la liste';
 
 /*VALIDATION DU FORMULAIRE ENTIER -> BOUTON CLIQUABLE*/
 
