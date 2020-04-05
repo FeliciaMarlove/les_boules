@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>E-shop de boules de Noël</title>
 </head>
-<body onload="readLocalities()" class="bodyHome">
+<body class="bodyHome">
     
 
     <div class="bandeau">
@@ -84,7 +84,7 @@
             </p>
 
             <p><button type="submit" value="Submit" id="send" onclick="doValidateForm()">Inscription</button></p>
-            <p><br>Vous avez déjà un compte ?<br><button onclick="window.location.href = './connexion.html'">Se connecter</button></p>
+            <p><br>Vous avez déjà un compte ?<br><button onclick="window.location.href = './connexion.html'">Se connecter</button></p>            
         </form>
     </div>
 
@@ -122,29 +122,6 @@
                         pays_l.append(option);
                     }
                     </script>"; 
-            // récupère la liste des villes en BD où le code pays = le code sélectionné dans la liste déroulante
-            $query = $connexion->prepare("SELECT * FROM TBL_VILLE WHERE CDE_PAYS = ?");
-            
-            // PROB : JS DYNAMIQUE PAS PHP !
-
-            
-
-            //$cde_pays = WUT ?
-            echo $_REQUEST['codepays'];
-            var_dump($_REQUEST);
-            
-            
-            $query->execute(array($cde_pays));
-            $villes = array();
-            // remplit un tableau avec les résultats de la requête préparée
-            foreach ($query as $item) {
-                $villes[] = $item;
-            }
-            // crée un fichier JSON depuis le tableau
-            $json = json_encode($villes);
-            
-            //echo '<script>const localites = $json;</script>';
-
         } catch(PDOException $e) {
             exit("Erreur BD : ".$e->getMessage());
         } catch (Exception $e) {

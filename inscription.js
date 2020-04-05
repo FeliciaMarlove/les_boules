@@ -19,8 +19,9 @@ let regexadress = /^[a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüý�
 let passwordsMatch = false;
 const ok = '<img src="images/checked.png" alt="Ok" style="width:12px;height:12px;">';
 const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12px;">';
-//const localites = 'https://www.zeus2025.be/exe/localites.json';
 const defautChoixLocalite = 'Choisissez votre localité dans la liste';
+//const localites = 'https://www.zeus2025.be/exe/localites.json';
+ 
 
 /*VALIDATION DU FORMULAIRE ENTIER -> BOUTON CLIQUABLE*/
 
@@ -88,14 +89,27 @@ function doCheckLocality() {
 function doCheckCountry() {
     let selecteur = document.getElementById("country");
     let selection = selecteur.options[selecteur.selectedIndex].value;
-    console.log(selection); // -> ce qu'il faut passer au PHP
     var xmlhttp = new XMLHttpRequest();
-    // xmlhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         console.log("state change js")
-    //     }
-    // };
-    xmlhttp.open("GET", "inscription.php?code_pays=" + selection, true);
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let villes_l = document.getElementById('local-dropdown');
+            villes_l.length = 0;
+            let defaultOptionV = document.createElement('option');
+            defaultOptionV.text = defautChoixLocalite;
+            villes_l.append(defaultOptionV);
+            villes_l.selectedIndex = 0;
+            const villes_bd = this.responseText;
+            let optionV;
+            for (let i = 0; i < villes_bd.length; i++) {
+                optionV = document.createElement('option');
+                optionV.innerText = villes_bd[i].CPOST +' '+villes_bd[i].VILLE;
+                optionV.value = villes_bd[i].ID_VILLE;
+                optionV.setAttribute('id', 'idville');
+                villes_l.append(optionV);
+            }
+        }
+    };
+    xmlhttp.open("GET", "localites.php?code=" + selection, true);
     xmlhttp.send();
 
 
@@ -151,30 +165,30 @@ function doStateCountryCheck() {
 
 /*JSON LOCALITES*/
 
-function readLocalities() {
-    let dropdown = document.getElementById('local-dropdown');
-    dropdown.length = 0;
-    let defaultOption = document.createElement('option');
-    defaultOption.text = defautChoixLocalite;
-    dropdown.append(defaultOption);
-    dropdown.selectedIndex = 0;
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            const data = JSON.parse(this.responseText);
-            //console.log(data);
-            //console.log(data.localites.length);
-            let option;
-            for (let i = 0; i < data.localites.length; i++) {
-                option = document.createElement('option');
-                option.innerText = data.localites[i].cp + ' ' + data.localites[i].ville;
-                option.value = option.innerText;
-                option.setAttribute("id", "local-option");
-                dropdown.append(option);
-            }
-        };
-    }
-    xmlhttp.open("GET", localites, true);
-    xmlhttp.send();
-}
+// function readLocalities() {
+//     let dropdown = document.getElementById('local-dropdown');
+//     dropdown.length = 0;
+//     let defaultOption = document.createElement('option');
+//     defaultOption.text = defautChoixLocalite;
+//     dropdown.append(defaultOption);
+//     dropdown.selectedIndex = 0;
+//     const xmlhttp = new XMLHttpRequest();
+//     xmlhttp.onreadystatechange = function () {
+//         if (this.readyState === 4 && this.status === 200) {
+//             const data = JSON.parse(this.responseText);
+//             //console.log(data);
+//             //console.log(data.localites.length);
+//             let option;
+//             for (let i = 0; i < data.localites.length; i++) {
+//                 option = document.createElement('option');
+//                 option.innerText = data.localites[i].cp + ' ' + data.localites[i].ville;
+//                 option.value = option.innerText;
+//                 option.setAttribute("id", "local-option");
+//                 dropdown.append(option);
+//             }
+//         };
+//     }
+//     xmlhttp.open("GET", localites, true);
+//     xmlhttp.send();
+// }
 
