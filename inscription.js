@@ -19,7 +19,7 @@ let regexadress = /^[a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüý�
 let passwordsMatch = false;
 const ok = '<img src="images/checked.png" alt="Ok" style="width:12px;height:12px;">';
 const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12px;">';
-const localites = 'https://www.zeus2025.be/exe/localites.json';
+//const localites = 'https://www.zeus2025.be/exe/localites.json';
 const defautChoixLocalite = 'Choisissez votre localité dans la liste';
 
 /*VALIDATION DU FORMULAIRE ENTIER -> BOUTON CLIQUABLE*/
@@ -56,6 +56,9 @@ function showMistakes() {
     if (!doMockupLogin()) {
         document.getElementById('tip-pwd2').innerHTML = 'Le mot de passe doit être identique';
     }
+    if (!doCheckCountry()) {
+        document.getElementById('tip-pays').innerHTML = 'Veuillez choisir votre pays';
+    }
 }
 
 /*FONCTIONS DE VERIFICATION*/
@@ -80,6 +83,23 @@ function doCheckLocality() {
     let selecteur = document.getElementById("local-dropdown");
     let selection = selecteur.options[selecteur.selectedIndex].value;
     return selection !== null && selection !== 0 && selection !== defautChoixLocalite;
+}
+
+function doCheckCountry() {
+    let selecteur = document.getElementById("country");
+    let selection = selecteur.options[selecteur.selectedIndex].value;
+    console.log(selection); // -> ce qu'il faut passer au PHP
+    var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         console.log("state change js")
+    //     }
+    // };
+    xmlhttp.open("GET", "inscription.php?code_pays=" + selection, true);
+    xmlhttp.send();
+
+
+    return selection !== null && selection !== 0 && selection !== defautChoixPays;
 }
 
 function doCheckConditions () {
@@ -125,6 +145,10 @@ function doStateLocalityCheck() {
     doStateCheck(doCheckLocality(), "stateLocality");
 }
 
+function doStateCountryCheck() {
+    doStateCheck(doCheckCountry(), "stateCountry");
+}
+
 /*JSON LOCALITES*/
 
 function readLocalities() {
@@ -153,3 +177,4 @@ function readLocalities() {
     xmlhttp.open("GET", localites, true);
     xmlhttp.send();
 }
+

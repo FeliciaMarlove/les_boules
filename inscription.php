@@ -59,8 +59,9 @@
             </p>
             <p>
                 <label for="country">Pays</label>
-                <select name="pays" id="country" >
+                <select name="pays" id="country"  required onchange="doStateCountryCheck()">
                 </select>
+                <bdi id="stateCountry"></bdi>
             </p>
             <p>
                 <bdi id="tip-pays" class="tip"></bdi>
@@ -93,13 +94,16 @@
         require_once('./utilitaires/MyPdo.service.php');
         try {
             $connexion = MyPdo::getInstance();
+            // récupère la table des pays dans la BD
             $pays_table = $connexion->query("SELECT * FROM TBL_PAYS");
             $pays = array();
+            // remplit un tableau avec les enregistrements de la DB
             foreach ($pays_table as $item) {
-                //echo $item['NOM_PAYS'];
                 $pays[] = $item;
             }
+            // crée un fichier JSON depuis le tableau
             $json = json_encode($pays);
+            // script JavaScript pour créer la liste déroulante dynamiquement en fonction du contenu JSON
             echo "<script type='text/javascript'>
                     const defautChoixPays = 'Choisissez votre pays dans la liste';
                     let pays_l = document.getElementById('country');
@@ -110,15 +114,37 @@
                     pays_l.selectedIndex = 0;
                     const pays_bd = $json;
                     let option;
-                    console.log(pays_bd);
                     for (let i = 0; i < pays_bd.length; i++) {
                         option = document.createElement('option');
                         option.innerText = pays_bd[i].NOM_PAYS;
-                        option.value = option.innerText;
-                        option.setAttribute('id', pays_bd[i].CDE_PAYS); // else 'CDE_PAYS'
+                        option.value = pays_bd[i].CDE_PAYS;
+                        option.setAttribute('id', 'code_p');
                         pays_l.append(option);
                     }
                     </script>"; 
+            // récupère la liste des villes en BD où le code pays = le code sélectionné dans la liste déroulante
+            $query = $connexion->prepare("SELECT * FROM TBL_VILLE WHERE CDE_PAYS = ?");
+            
+            // PROB : JS DYNAMIQUE PAS PHP !
+
+            
+
+            //$cde_pays = WUT ?
+            echo $_REQUEST['codepays'];
+            var_dump($_REQUEST);
+            
+            
+            $query->execute(array($cde_pays));
+            $villes = array();
+            // remplit un tableau avec les résultats de la requête préparée
+            foreach ($query as $item) {
+                $villes[] = $item;
+            }
+            // crée un fichier JSON depuis le tableau
+            $json = json_encode($villes);
+            
+            //echo '<script>const localites = $json;</script>';
+
         } catch(PDOException $e) {
             exit("Erreur BD : ".$e->getMessage());
         } catch (Exception $e) {
