@@ -19,10 +19,13 @@
 			$date = new DateTime();
 			$timeStamp = $date->getTimestamp();
 			$villeDto = $_POST['localite'];
+			var_dump($_POST['localite']);
 			// trouve l'espace blanc (sépraration entre le code postal et le nom de la ville)
 			$startNomVille = strpos($villeDto, " ") + 1;
 			// récupère l'id de la ville en base de données sur base de ce qui est reçu du client
-			$idVille = $connexion->query("SELECT * FROM TBL_VILLE WHERE VILLE = ".substr(trim($villeDto), $startNomVille)." AND CPOST = ".substr($ville, 0, $startNomVille - 1);
+			$query = $connexion->prepare("SELECT * FROM TBL_VILLE WHERE VILLE = ? AND CPOST = ?");
+			$idVille = $query->execute(array(substr($villeDto, $startNomVille), substr($villeDto, 0, $startNomVille - 1)));
+			var_dump($idVille);
 			$reqPreparee = $connexion->prepare("INSERT INTO `TBL_CLIENT`(`NOM_PRENOM`, `ADRESSE`, `ID_VILLE`, `EMAIL`, `PASSWORD`, `OPTIN`) VALUES (?,?,?,?,?,?)");
 			// exécute la requête préparée avec les informations récupérées dans le POST depuis le formulaire HTML
 			$reqPreparee->execute(array($_POST['nom'],$_POST['adresse'],$idVille,strtolower(trim($_POST['email'])),$_POST['motdepasse'],$timeStamp));
