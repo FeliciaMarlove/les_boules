@@ -59,7 +59,7 @@
             </p>
             <p>
                 <label for="country">Pays</label>
-                <select name="pays" id="country"  required onchange="doStateCountryCheck()">
+                <select name="pays" id="country"  required oninput="doStateCountryCheck()">
                 </select>
                 <bdi id="stateCountry"></bdi>
             </p>
@@ -72,8 +72,11 @@
                 <select id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()">
                 </select>
                 <bdi id="stateLocality"></bdi> -->
-
-                <input id="local-dropdown" type="text" name="localite" placeholder="Localité" required onchange="doStateLocalityCheck()" oninput="filterLocality()">
+                <div class="autocomplete" style="width:300px;">
+                <label for="local-dropdown">Localité *</label>
+                <input id="local-dropdown" type="text" name="localite" placeholder="Tapez votre code postal" required oninput="doStateLocalityCheck()">
+                <bdi id="stateLocality"></bdi>
+                </div>
             </p>
             <p>
                 <bdi id="tip-localite" class="tip"></bdi>

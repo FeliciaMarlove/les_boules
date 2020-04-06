@@ -14,7 +14,7 @@ require_once('./utilitaires/MyPdo.service.php');
             // convertit le tableau en JSON
             $json = json_encode($villes);
             // retourne le fichier JSON des villes selon le fichier sélectionné au fichier JavaScript qui a émis la requête Ajax
-            echo $json; 
+            echo $json;
         } catch(PDOException $e) {
             exit("Erreur BD : ".$e->getMessage());
         } catch (Exception $e) {

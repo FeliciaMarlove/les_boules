@@ -22,6 +22,8 @@ const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12p
 const defautChoixLocalite = 'Choisissez votre localité dans la liste';
 //const localites = 'https://www.zeus2025.be/exe/localites.json';
 let villes;
+document.getElementById('local-dropdown').disabled = true;
+let villeSelect;
  
 
 /*VALIDATION DU FORMULAIRE ENTIER -> BOUTON CLIQUABLE*/
@@ -82,9 +84,8 @@ function doCheckAddress() {
 }
 
 function doCheckLocality() {
-    let selecteur = document.getElementById("local-dropdown");
-    let selection = selecteur.options[selecteur.selectedIndex].value;
-    return selection !== null && selection !== 0 && selection !== defautChoixLocalite;
+    // to do : check par la dom que l'élément sélectionné !== defautChoixLocalite et de ''/null/etc
+    return true;
 }
 
 function doCheckCountry() {
@@ -94,6 +95,8 @@ function doCheckCountry() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             villes = this.responseText;
+            document.getElementById('local-dropdown').disabled = false;
+            filterLocality();
         }
     };
     xmlhttp.open("GET", "localites.php?code=" + selection, true);
@@ -150,8 +153,9 @@ function doStateCountryCheck() {
 
 /*FILTRER LES LOCALITÉS EN FONCTION DE CE QUE L'UTILISATEUR TAPE*/
 function filterLocality() {
-    autocomplete(document.getElementById("local-dropdown"), villes);
+    autocomplete(document.getElementById("local-dropdown"), JSON.parse(villes));
 }
+
 function autocomplete(domElement, arrayValeurs) {
   var currentFocus;
         //écoute les événements de type "input"
@@ -169,19 +173,19 @@ function autocomplete(domElement, arrayValeurs) {
       this.parentNode.appendChild(a);
       // test sur chaque élément du tableau
       for (i = 0; i < arrayValeurs.length; i++) {
-        // compare les premières lettres
-        if (arrayValeurs[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          // crée une DIV pour les éléemnts qui correspondent
+        // compare les chiffres du code postal en commançant à l'index 2 pour ne pas prendre en compte les 2 premiers caractères
+        if (arrayValeurs[i].CPOST.substr(2, val.length) == val) {
+          // crée une DIV pour les éléements qui correspondent
           b = document.createElement("DIV");
-          // style  : les lettres qui correspondent sont en gras
-          b.innerHTML = "<strong>" + arrayValeurs[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arrayValeurs[i].substr(val.length);
-          // stocke le tableau de résultats (caché)
-          b.innerHTML += "<input type='hidden' value='" + arrayValeurs[i] + "'>";
+          // style  : les chiffres qui correspondent sont en gras
+          b.innerHTML = "<strong>" + arrayValeurs[i].CPOST.substr(0, val.length) + "</strong>";
+          b.innerHTML += arrayValeurs[i].CPOST.substr(val.length) + " " + arrayValeurs[i].VILLE;
+          // stocke la liste de résultats (tels qu'ils apparaîtront dans le champ input quand on en sélectionne un)
+          b.innerHTML += "<input type='hidden' value='" + arrayValeurs[i].CPOST + " " + arrayValeurs[i].VILLE + "'/>";
           // écoute les clics sur la liste
               b.addEventListener("click", function(e) {
-              // insère la valeur
-              inp.value = this.getElementsByTagName("input")[0].value;
+              // récupère la valeur sélectionnée depuis la liste de b
+              domElement.value = this.getElementsByTagName("input")[0].value;
               // ferme la liste 
               closeAllLists();
           });
