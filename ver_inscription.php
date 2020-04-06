@@ -25,9 +25,9 @@
 			// récupère l'id de la ville en base de données sur base de ce qui est reçu du client
 			$query = $connexion->prepare("SELECT * FROM TBL_VILLE WHERE VILLE = ? AND CPOST = ?");
 			$idVille = $query->execute(array(substr($villeDto, $startNomVille), substr($villeDto, 0, $startNomVille - 1)));
-			var_dump($idVille);
+			// prépare la requête pour insérer l'enregistrement en base de données
 			$reqPreparee = $connexion->prepare("INSERT INTO `TBL_CLIENT`(`NOM_PRENOM`, `ADRESSE`, `ID_VILLE`, `EMAIL`, `PASSWORD`, `OPTIN`) VALUES (?,?,?,?,?,?)");
-			// exécute la requête préparée avec les informations récupérées dans le POST depuis le formulaire HTML
+			// exécute la requête préparée avec les informations récupérées depuis le formulaire HTML
 			$reqPreparee->execute(array($_POST['nom'],$_POST['adresse'],$idVille,strtolower(trim($_POST['email'])),$_POST['motdepasse'],$timeStamp));
 			header('Location: ./eshop.php');
 		}
