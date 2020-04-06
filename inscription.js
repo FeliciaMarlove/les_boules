@@ -21,6 +21,7 @@ const ok = '<img src="images/checked.png" alt="Ok" style="width:12px;height:12px
 const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12px;">';
 const defautChoixLocalite = 'Choisissez votre localité dans la liste';
 //const localites = 'https://www.zeus2025.be/exe/localites.json';
+let villes;
  
 
 /*VALIDATION DU FORMULAIRE ENTIER -> BOUTON CLIQUABLE*/
@@ -92,27 +93,11 @@ function doCheckCountry() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            let villes_l = document.getElementById('local-dropdown');
-            villes_l.length = 0;
-            let defaultOptionV = document.createElement('option');
-            defaultOptionV.text = defautChoixLocalite;
-            villes_l.append(defaultOptionV);
-            villes_l.selectedIndex = 0;
-            const villes_bd = this.responseText;
-            let optionV;
-            for (let i = 0; i < villes_bd.length; i++) {
-                optionV = document.createElement('option');
-                optionV.innerText = villes_bd[i].CPOST +' '+villes_bd[i].VILLE;
-                optionV.value = villes_bd[i].ID_VILLE;
-                optionV.setAttribute('id', 'idville');
-                villes_l.append(optionV);
-            }
+            villes = this.responseText;
         }
     };
     xmlhttp.open("GET", "localites.php?code=" + selection, true);
     xmlhttp.send();
-
-
     return selection !== null && selection !== 0 && selection !== defautChoixPays;
 }
 
@@ -161,6 +146,93 @@ function doStateLocalityCheck() {
 
 function doStateCountryCheck() {
     doStateCheck(doCheckCountry(), "stateCountry");
+}
+
+/*FILTRER LES LOCALITÉS EN FONCTION DE CE QUE L'UTILISATEUR TAPE*/
+function filterLocality() {
+    autocomplete(document.getElementById("local-dropdown"), villes);
+}
+function autocomplete(domElement, arrayValeurs) {
+  var currentFocus;
+        //écoute les événements de type "input"
+      domElement.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      // nettoyer les listes déjà ouvertes des précédents événements
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      // crée une DIV pour contenir les éléments
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      // ajoute les éléments à la DIV
+      this.parentNode.appendChild(a);
+      // test sur chaque élément du tableau
+      for (i = 0; i < arrayValeurs.length; i++) {
+        // compare les premières lettres
+        if (arrayValeurs[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          // crée une DIV pour les éléemnts qui correspondent
+          b = document.createElement("DIV");
+          // style  : les lettres qui correspondent sont en gras
+          b.innerHTML = "<strong>" + arrayValeurs[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arrayValeurs[i].substr(val.length);
+          // stocke le tableau de résultats (caché)
+          b.innerHTML += "<input type='hidden' value='" + arrayValeurs[i] + "'>";
+          // écoute les clics sur la liste
+              b.addEventListener("click", function(e) {
+              // insère la valeur
+              inp.value = this.getElementsByTagName("input")[0].value;
+              // ferme la liste 
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  //écoute les événements clavier
+  domElement.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        // empêcher le formulaire d'être envoyé en appuyant sur enter
+        e.preventDefault();
+        if (currentFocus > -1) {
+          // "valider" l'élement sur lequel le focus est mis
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    // déterminer l'élément "actif"
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != domElement) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+// fermer les listes quand on clique en dehors 
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
 }
 
 /*JSON LOCALITES*/
