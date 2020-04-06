@@ -68,8 +68,9 @@
             </p>
             <p>
                 <label for="local-dropdown">Localité *</label>
-                <select id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()">
-                </select>
+                <input type="text" list="villes">
+                <datalist id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()"> 
+                </datalist>
                 <bdi id="stateLocality"></bdi>
             </p>
             <p>
