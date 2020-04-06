@@ -67,11 +67,13 @@
                 <bdi id="tip-pays" class="tip"></bdi>
             </p>
             <p>
+                <!-- <label for="filtervilles">Code postal *</label><input type="text" id="filtervilles" >
                 <label for="local-dropdown">Localité *</label>
-                <input type="text" list="villes">
-                <datalist id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()"> 
-                </datalist>
-                <bdi id="stateLocality"></bdi>
+                <select id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()">
+                </select>
+                <bdi id="stateLocality"></bdi> -->
+
+                <input id="local-dropdown" type="text" name="localite" placeholder="Localité" required onchange="doStateLocalityCheck()" oninput="filterLocality()">
             </p>
             <p>
                 <bdi id="tip-localite" class="tip"></bdi>
