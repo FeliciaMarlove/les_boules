@@ -32,7 +32,7 @@ function doValidateForm() {
     for (let i = 0; i < allTips.length; i++) {
         allTips.item(i).innerHTML = '';
     }
-    if (!(doCheckEmail() && doCheckName() && doCheckPwd() && doMockupLogin() && doCheckAddress() && doCheckConditions() && doCheckLocality())) {
+    if (!(doCheckEmail() && doCheckName() && doCheckPwd() && doCheckAddress() && doCheckConditions() && doCheckLocality())) {
         showMistakes(); event.preventDefault();
     }
 }
