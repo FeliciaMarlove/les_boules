@@ -13,6 +13,7 @@
         <h2>E-shop Les boules</h2>
     </div>
     <div class="formulaire">
+        <p style="font-size: 20px"><strong>Créer un nouveau compte client</strong></p>
         <form action="./ver_inscription.php" method="POST" id="formulaire">
             <p>
                 <label for="email">Email *</label>
@@ -85,7 +86,7 @@
             </p>
 
             <p><button type="submit" value="Submit" id="send" onclick="doValidateForm()">Inscription</button></p>
-            <p><br>Vous avez déjà un compte ?<br><button onclick="window.location.href = './connexion.html'">Se connecter</button></p>            
+            <p><br>Vous avez déjà un compte ?<br><button onclick="window.location.href = './connexion.php'">Se connecter</button></p>            
         </form>
     </div>
 
@@ -94,6 +95,7 @@
 <?php
         require_once('./utilitaires/MyPdo.service.php');
         try {
+            // récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
             $connexion = MyPdo::getInstance();
             // récupère la table des pays dans la BD
             $pays_table = $connexion->query("SELECT * FROM TBL_PAYS");
