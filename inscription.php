@@ -72,7 +72,7 @@
                 <select id="local-dropdown" name="localite" required oninput="doStateLocalityCheck()">
                 </select>
                 <bdi id="stateLocality"></bdi> -->
-                <div class="autocomplete" style="width:300px;">
+                <div class="autocomplete" style="width:250px;">
                 <label for="local-dropdown">Localité *</label>
                 <input id="local-dropdown" type="text" name="localite" placeholder="Tapez votre code postal" required oninput="doStateLocalityCheck()">
                 <bdi id="stateLocality"></bdi>
