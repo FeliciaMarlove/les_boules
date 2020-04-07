@@ -107,11 +107,6 @@ function doCheckConditions () {
     return conditions.checked;
 }
 
-function doMockupLogin() {
-    passwordsMatch = (motDePasse.value === motDePasseVerif.value);
-    return passwordsMatch;
-}
-
 /*FONCTIONS D'AFFICHAGE OK / NOK (ICONES)*/
 
 function doStateCheck(fonction, element) {
