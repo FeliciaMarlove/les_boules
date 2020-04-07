@@ -14,7 +14,7 @@
 			echo '<script type="text/javascript">';
 			echo 'alert("Cette adresse e-mail existe déjà, cliquez sur Se connecter pour accéder à votre compte.")';
 			echo '</script>';
-			echo '<script type="text/javascript"> window.location = \'./inscription.html\'; </script>';
+			echo '<script type="text/javascript"> window.location = \'./inscription.php\'; </script>';
 		} else {
 			$date = new DateTime();
 			$villeDto = $_POST['localite'];

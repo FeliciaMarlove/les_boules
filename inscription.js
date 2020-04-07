@@ -186,7 +186,7 @@ function autocomplete(domElement, arrayValeurs) {
               b.addEventListener("click", function(e) {
               // récupère la valeur sélectionnée depuis la liste de b
               domElement.value = this.getElementsByTagName("input")[0].value;
-              domElement.disabled = true;
+              domElement.contenteditable = false;
               // ferme la liste 
               closeAllLists();
           });
@@ -242,7 +242,7 @@ document.addEventListener("click", function (e) {
 
 //efface le contenu de la ville et rend le champ éditable à nouveau
 function releaseCity() {
-    localite.disabled = false;
+    localite.contenteditable = true;
     localite.value = null;
     doStateLocalityCheck();
 }
