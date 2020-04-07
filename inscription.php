@@ -16,7 +16,7 @@
         <form action="./ver_inscription.php" method="POST" id="formulaire">
             <p>
                 <label for="email">Email *</label>
-                <input type="text" name="email" id="email" required oninput="doStateMailCheck()">
+                <input type="text" style="max-width:350px;" name="email" id="email" required oninput="doStateMailCheck()">
                 <bdi id="stateEmail"></bdi>
             </p>
             <p>
@@ -42,7 +42,7 @@
             <p>
             <p>
                 <label for="name">Nom Prénom *</label>
-                <input type="text" name="nom" id="name" required oninput="doStateNomPrenomCheck()">
+                <input type="text" style="max-width:350px;" name="nom" id="name" required oninput="doStateNomPrenomCheck()">
                 <bdi id="stateName"></bdi>
             </p>
             <p>
@@ -51,7 +51,7 @@
             <p>
             <p>
                 <label for="address">Adresse *</label>
-                <input type="text" name="adresse" id="address" required oninput="doStateAddressCheck()">
+                <input type="text" style="max-width:350px;" name="adresse" id="address" required oninput="doStateAddressCheck()">
                 <bdi id="stateAddress"></bdi>
             </p>
             <p>
