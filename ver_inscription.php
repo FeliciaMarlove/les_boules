@@ -17,7 +17,6 @@
 			echo '<script type="text/javascript"> window.location = \'./inscription.html\'; </script>';
 		} else {
 			$date = new DateTime();
-			$timeStamp = $date->getTimestamp();
 			$villeDto = $_POST['localite'];
 			// trouve l'espace blanc (sépraration entre le code postal et le nom de la ville)
 			$startNomVille = strpos($villeDto, " ") + 1;
@@ -28,7 +27,7 @@
 			// prépare la requête pour insérer l'enregistrement en base de données
 			$reqPreparee = $connexion->prepare("INSERT INTO `TBL_CLIENT`(`NOM_PRENOM`, `ADRESSE`, `ID_VILLE`, `EMAIL`, `PASSWORD`, `OPTIN`) VALUES (?,?,?,?,?,?)");
 			// exécute la requête préparée avec les informations récupérées depuis le formulaire HTML
-			$reqPreparee->execute(array($_POST['nom'],$_POST['adresse'],$idVille,strtolower(trim($_POST['email'])),$_POST['motdepasse'],$timeStamp));
+			$reqPreparee->execute(array($_POST['nom'],$_POST['adresse'],$idVille,strtolower(trim($_POST['email'])),$_POST['motdepasse'],$date->format('Y-m-d H:i:s')));
 			// redirige vers l'eshop
 			header('Location: ./eshop.php');
 		}
