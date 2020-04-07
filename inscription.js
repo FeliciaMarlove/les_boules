@@ -87,6 +87,7 @@ function doCheckLocality() {
 }
 
 function doCheckCountry() {
+    releaseCity();
     let selecteur = document.getElementById("country");
     let selection = selecteur.options[selecteur.selectedIndex].value;
     var xmlhttp = new XMLHttpRequest();
@@ -185,6 +186,7 @@ function autocomplete(domElement, arrayValeurs) {
               b.addEventListener("click", function(e) {
               // récupère la valeur sélectionnée depuis la liste de b
               domElement.value = this.getElementsByTagName("input")[0].value;
+              domElement.disabled = true;
               // ferme la liste 
               closeAllLists();
           });
@@ -236,6 +238,13 @@ function autocomplete(domElement, arrayValeurs) {
 document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
+}
+
+//efface le contenu de la ville et rend le champ éditable à nouveau
+function releaseCity() {
+    localite.disabled = false;
+    localite.value = null;
+    doStateLocalityCheck();
 }
 
 /*JSON LOCALITES*/
