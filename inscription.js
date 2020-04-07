@@ -3,7 +3,7 @@ let motDePasse = document.getElementById("pwd");
 let motDePasseVerif = document.getElementById("pwd2");
 let email = document.getElementById("email");
 let adresse = document.getElementById("address");
-let localite = document.getElementById("local");
+let localite = document.getElementById("local-dropdown");
 let pays = document.getElementById("country");
 let conditions = document.getElementById("conditions");
 let regexnom = /^([a-zA-Z]{2,})(\s)([a-zA-Z]{2,})/;
@@ -13,13 +13,12 @@ let regexmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(
  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
  */
 let regexpwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/; /*au moins 1 minuscule, 1 majuscule, 1 chifre, 1 caractère spécial, longueur de 8*/
-let regexadress = /^[a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s\-\/\']+$/i;
-/*seulement des lettres, des chiffres et espace, -, ' et / autorisés ; i = case insensitive*/
+let regexadress = /^[a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s\-\/\']+$/i; /*seulement des lettres, des chiffres et espace, -, ' et / autorisés ; i = case insensitive*/
+let regexcity = /^([a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s\-\/\'\(\)])+$/i;
 //let bouton = document.getElementById("send");
 let passwordsMatch = false;
 const ok = '<img src="images/checked.png" alt="Ok" style="width:12px;height:12px;">';
 const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12px;">';
-const defautChoixLocalite = 'Choisissez votre localité dans la liste';
 //const localites = 'https://www.zeus2025.be/exe/localites.json';
 let villes;
 document.getElementById('local-dropdown').disabled = true;
@@ -84,8 +83,7 @@ function doCheckAddress() {
 }
 
 function doCheckLocality() {
-    // to do : check par la dom que l'élément sélectionné !== defautChoixLocalite et de ''/null/etc
-    return true;
+    return regexcity.test(localite.value) && localite.value.length > 0;
 }
 
 function doCheckCountry() {
@@ -177,8 +175,9 @@ function autocomplete(domElement, arrayValeurs) {
         if (arrayValeurs[i].CPOST.substr(2, val.length) == val) {
           // crée une DIV pour les éléements qui correspondent
           b = document.createElement("DIV");
-          // style  : les chiffres qui correspondent sont en gras
+          // les caractères tapés "remplacent" les caractères dans les résultats (chevauchement)
           b.innerHTML = "<strong>" + arrayValeurs[i].CPOST.substr(0, val.length) + "</strong>";
+          // valeurs à afficher dans la liste (éléments correspondants)
           b.innerHTML += arrayValeurs[i].CPOST.substr(val.length) + " " + arrayValeurs[i].VILLE;
           // stocke la liste de résultats (tels qu'ils apparaîtront dans le champ input quand on en sélectionne un)
           b.innerHTML += "<input type='hidden' value='" + arrayValeurs[i].CPOST + " " + arrayValeurs[i].VILLE + "'/>";
