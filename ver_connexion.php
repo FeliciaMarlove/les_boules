@@ -29,7 +29,6 @@
 			echo '<script type="text/javascript"> window.location = \'./connexion.php\'; </script>';
 			}
 		}
-		
 	} catch(PDOException $e) {
 		exit("Erreur BD : ".$e->getMessage());
 	} catch (Exception $e) {

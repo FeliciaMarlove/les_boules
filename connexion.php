@@ -29,7 +29,7 @@
 	            <p>
 	                <bdi id="tip-pwd" class="tip"></bdi>
 	            </p>
-				<p><button type="submit" value="Submit" id="send" onclick="doConnect()">Connexion</button></p>
+				<p><button type="submit" value="Submit" id="send" onclick="doConnectCheck()">Connexion</button></p>
 				<p><br>Pas encore inscrit ?<br><button onclick="window.location.href = './inscription.php'">Créer un compte</button></p> 
 			 </form>
     </div>
