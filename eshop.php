@@ -5,27 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>E-shop de boules de Noël</title>
-    <?php
-        session_start();
-        echo "<p>".$_SESSION['utilisateur']."</p>";
-        require_once('./utilitaires/MyPdo.service.php');
-        require_once('./utilitaires/LoadBoules.service.php');
-        try {
-            // récupérer une instance du Singleton MyPdo pour avoir une seule connexion à la DB
-            $connexion = MyPdo::getInstance();
-            // charger les boules dans la base de données si la table est vide
-            $getBoules = LoadBoules::chargerXML('https://www.zeus2025.be/exe/boutique.xml');
-        } catch(PDOException $e) {
-            exit("Erreur ouverture BD : ".$e->getMessage());
-        } catch (Exception $e) {
-            exit("Le site a rencontré un problème : ".$e->getMessage());
-        } finally {
-            $connexion = null;
-        }
-    ?>
+    
 </head>
 <body onload="readBoules()" class="bodyShop">
     <div class="topShop" >
+        <p id='bonjour'>Bievenue </p>
         <img src="./images/shopping-cart.png" height="50px" width="50px" style="padding: 5px" id="cartIcon">
         <div id="cartText">
             Nombre d'articles :
@@ -42,3 +26,22 @@
 </body>
 <script src="eshop.js"></script>
 </html>
+<?php
+        session_start();
+        $nom = $_SESSION['utilisateur'];
+        echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; // ) missing ??
+        require_once('./utilitaires/MyPdo.service.php');
+        require_once('./utilitaires/LoadBoules.service.php');
+        try {
+            // récupérer une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+            $connexion = MyPdo::getInstance();
+            // charger les boules dans la base de données si la table est vide
+            $getBoules = LoadBoules::chargerXML('https://www.zeus2025.be/exe/boutique.xml');
+        } catch(PDOException $e) {
+            exit("Erreur ouverture BD : ".$e->getMessage());
+        } catch (Exception $e) {
+            exit("Le site a rencontré un problème : ".$e->getMessage());
+        } finally {
+            $connexion = null;
+        }
+    ?>

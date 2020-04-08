@@ -24,7 +24,7 @@ function addToCart(index) {
 }
 
 function domCreate () {
-    console.log('function domCreate(), balls = : ', balls,' length : ', balls.length);
+    // console.log('function domCreate(), balls = : ', balls,' length : ', balls.length);
     collectionOfArticles = document.getElementById('articles');
     let boule;
     for (let i = 0; i < balls.length; i++) {
