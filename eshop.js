@@ -1,9 +1,10 @@
-const boules = 'https://www.zeus2025.be/exe/boutique.xml';
+//const boules = 'https://www.zeus2025.be/exe/boutique.xml';
 let cart = 0;
 let somme = 0;
 let balls = [];
 let collectionOfArticles;
-let ajouter;;
+let ajouter;
+let xmlDoc;
 
 function addToCart(index) {
     let currentBall = document.getElementById("ball" + index);
@@ -24,10 +25,8 @@ function addToCart(index) {
 
 function domCreate () {
     readBoules();
-    //console.log(balls);
+    console.log(balls);
     collectionOfArticles = document.getElementById('articles');
-/*    collectionOfArticles.length = 0;
-    collectionOfArticles.selectedIndex = 0;*/
     let boule;
     for (let i = 0; i < balls.length; i++) {
         boule = document.createElement('div');
@@ -83,9 +82,18 @@ function readBoules() {
     } else { // POUR INTERNET EXPLORER
         xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlHttp.open("GET", boules, false);
+    xmlHttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+                xmlDoc = xmlHttp.responseText;
+                console.log(xmlDoc);
+                makeBoules();
+        }
+    };
+    xmlHttp.open("GET", "read_boules.php", true);
     xmlHttp.send();
-    xmlDoc = xmlHttp.responseXML;
+}
+
+function makeBoules() {
     let countArticles = xmlDoc.getElementsByTagName('article').length;
     let oneBall;
     let idd, lib, prix, stock, image;

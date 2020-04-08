@@ -94,10 +94,12 @@ function doCheckCountry() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             villes = this.responseText;
+            console.log('ici?',villes)
             document.getElementById('local-dropdown').disabled = false;
             filterLocality();
         }
     };
+    console.log(villes)
     xmlhttp.open("GET", "localites.php?code=" + selection, true);
     xmlhttp.send();
     return selection !== null && selection !== 0 && selection !== defautChoixPays;
@@ -146,6 +148,7 @@ function doStateCountryCheck() {
 }
 
 /*FILTRER LES LOCALITÉS EN FONCTION DE CE QUE L'UTILISATEUR TAPE*/
+
 function filterLocality() {
     autocomplete(document.getElementById("local-dropdown"), JSON.parse(villes));
 }
