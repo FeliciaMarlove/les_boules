@@ -22,7 +22,7 @@
         }
     ?>
 </head>
-<body onload="domCreate()" class="bodyShop">
+<body onload="readBoules()" class="bodyShop">
     <div class="topShop" >
         <img src="./images/shopping-cart.png" height="50px" width="50px" style="padding: 5px" id="cartIcon">
         <div id="cartText">
@@ -35,7 +35,7 @@
 
     </div>
     <div class="tableContainer">
-        <div id="articles" class="articles"> </div>
+        <div id="articles" class="articles"></div>
     </div>
 </body>
 <script src="eshop.js"></script>

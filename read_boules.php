@@ -10,6 +10,7 @@
 		// écrit un fichier XML à partir des informations récupérées en base de données
 		$x = new XMLWriter();
 		$x->openMemory();
+		$x->setIndent(true);
 		$x->startDocument('1.0','UTF-8');
 		$x->startElement('boutique');
 		foreach ($boules as $boule) {
@@ -29,7 +30,7 @@
 			$x->startElement('stock');
 			$x->text($boule['STOCK_ARTICLE']);
 			$x->endElement();
-			$x->startElement('image');
+			$x->startElement('illustration'); // écrire "image" ou "img" cause des problèmes dans le XML !
 			$x->text($boule['IMG_ARTICLE']);
 			$x->endElement();
 			$x->endElement(); // ferme l'élément article

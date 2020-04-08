@@ -24,8 +24,7 @@ function addToCart(index) {
 }
 
 function domCreate () {
-    readBoules();
-    console.log(balls);
+    console.log('function domCreate(), balls = : ', balls,' length : ', balls.length);
     collectionOfArticles = document.getElementById('articles');
     let boule;
     for (let i = 0; i < balls.length; i++) {
@@ -39,6 +38,8 @@ function domCreate () {
         itemId.setAttribute("hidden", "true");
         let itemLib = document.createElement('p');
         itemLib.setAttribute("class", "libBoule");
+        let itemDes = document.createElement('p');
+        itemDes.setAttribute("class", "desBoule");
         let itemPrix = document.createElement('p');
         itemPrix.setAttribute("class", "prixBoule");
         let itemStock = document.createElement('p');
@@ -52,13 +53,15 @@ function domCreate () {
         boule.append(itemImage);
         boule.append(itemId);
         boule.append(itemLib);
-        boule.append("Bla bla bla bla Bla bla bla bla");
+        boule.append(itemDes);
         boule.append(itemPrix);
         boule.append(itemStock);
         boule.append(ajouter);
 
         itemImage.src = balls[i].image;
+        console.log(itemImage.src)
         itemLib.innerHTML = balls[i].lib;
+        itemDes.innerHTML = balls[i].des;
         itemPrix.innerHTML = balls[i].prix;
         itemId.innerHTML = balls[i].idd;
         itemStock.innerHTML = balls[i].stock;
@@ -84,12 +87,14 @@ function readBoules() {
     }
     xmlHttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-                xmlDoc = xmlHttp.responseText;
-                console.log(xmlDoc);
+                xmlDoc = this.response;
+                console.log('readBoules(), response = ', this.response);
                 makeBoules();
         }
     };
     xmlHttp.open("GET", "read_boules.php", true);
+    xmlHttp.responseType = "document"; // get response as XML document (can use XPath and other XML methods)
+
     xmlHttp.send();
 }
 
@@ -100,17 +105,20 @@ function makeBoules() {
     for (let i = 0; i < countArticles; i++) {
         idd = xmlDoc.getElementsByTagName("id")[i].childNodes[0].nodeValue;
         lib = xmlDoc.getElementsByTagName("lib")[i].childNodes[0].nodeValue;
+        des = xmlDoc.getElementsByTagName("description")[i].childNodes[0].nodeValue;
         prix = xmlDoc.getElementsByTagName("prix")[i].childNodes[0].nodeValue;
         stock = xmlDoc.getElementsByTagName("stock")[i].childNodes[0].nodeValue;
-        image = xmlDoc.getElementsByTagName("image")[i].childNodes[0].nodeValue;
+        image = xmlDoc.getElementsByTagName("illustration")[i].childNodes[0].nodeValue;
         oneBall = {
             idd,
             lib,
+            des,
             prix,
             stock,
             image
         }
         balls[i] = oneBall;
+        domCreate();
     }
     //console.log(balls);
 }
