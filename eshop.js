@@ -88,7 +88,7 @@ function readBoules() {
     xmlHttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
                 xmlDoc = this.response;
-                console.log('readBoules(), response = ', this.response);
+                // console.log('readBoules(), response = ', this.response);
                 makeBoules();
         }
     };
@@ -118,8 +118,9 @@ function makeBoules() {
             image
         }
         balls[i] = oneBall;
-        domCreate();
+        
     }
+    domCreate();
     //console.log(balls);
 }
 
