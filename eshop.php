@@ -9,7 +9,7 @@
 </head>
 <body onload="readBoules()" class="bodyShop">
     <div class="topShop" >
-        <p id='bonjour'>Bievenue </p>
+        <p id='bonjour'>Bienvenue </p>
         <img src="./images/shopping-cart.png" height="50px" width="50px" style="padding: 5px" id="cartIcon">
         <div id="cartText">
             Nombre d'articles :

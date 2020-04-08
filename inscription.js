@@ -16,7 +16,6 @@ let regexpwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 let regexadress = /^[a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s\-\/\'\,]+$/i; /*seulement des lettres, des chiffres et espace, -, ', , et / autorisés ; i = case insensitive*/
 let regexcity = /^([a-z0-9àáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s\-\/\'\(\)])+$/i;
 //let bouton = document.getElementById("send");
-let passwordsMatch = false;
 const ok = '<img src="images/checked.png" alt="Ok" style="width:12px;height:12px;">';
 const nok = '<img src="images/cancel.png" alt="Nok" style="width:12px;height:12px;">';
 //const localites = 'https://www.zeus2025.be/exe/localites.json';
@@ -86,6 +85,10 @@ function doCheckLocality() {
     return regexcity.test(localite.value) && localite.value.length > 0;
 }
 
+function doCheckPwd2() {
+    return (motDePasse.value === motDePasseVerif.value); 
+}
+
 function doCheckCountry() {
     releaseCity();
     let selecteur = document.getElementById("country");
@@ -94,12 +97,11 @@ function doCheckCountry() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             villes = this.responseText;
-            console.log('ici?',villes)
+            // console.log(villes);
             document.getElementById('local-dropdown').disabled = false;
             filterLocality();
         }
     };
-    console.log(villes)
     xmlhttp.open("GET", "localites.php?code=" + selection, true);
     xmlhttp.send();
     return selection !== null && selection !== 0 && selection !== defautChoixPays;
@@ -128,7 +130,7 @@ function doStatePasswordCheck() {
 }
 
 function doStatePassword2Check() {
-    doStateCheck(doMockupLogin(), "statePassword2");
+    doStateCheck(doCheckPwd2(), "statePassword2");
 }
 
 function doStateNomPrenomCheck() {

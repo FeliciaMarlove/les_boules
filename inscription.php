@@ -33,7 +33,7 @@
             </p>
             <p>
             <p>
-                <label for="pwd2">Vérification</label>
+                <label for="pwd2">Vérification *</label>
                 <input type="password" name="ver mot de passe" id="pwd2" required oninput="doStatePassword2Check()">
                 <bdi id="statePassword2"></bdi>
             </p>
