@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	require_once('./utilitaires/MyPdo.service.php');
 	try {
 		// récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
@@ -18,8 +19,9 @@
 			// récupère le mot de passe en base de données
 			$resultat = $reqPrepa->fetch($connexion::FETCH_OBJ);
 			$pwdCompare = $resultat->PASSWORD;
-			// si le mot de passe entré et le mot de passe en base de données sont égaux, on peut poursuivre vers l'e-shop
+			// si le mot de passe entré et le mot de passe en base de données sont égaux, enregistre le nom de l'utilisateur dans une variable de session et poursuit vers l'eshop
 			if ($pwdCompare === $mdp) {
+				$_SESSION['utilisateur'] = $resultat->NOM_PRENOM;
 				header('Location: ./eshop.php');
 			} else {
 				//sinon on alerte l'utilisateur

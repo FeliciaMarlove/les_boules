@@ -59,7 +59,6 @@ function domCreate () {
         boule.append(ajouter);
 
         itemImage.src = balls[i].image;
-        console.log(itemImage.src)
         itemLib.innerHTML = balls[i].lib;
         itemDes.innerHTML = balls[i].des;
         itemPrix.innerHTML = balls[i].prix;

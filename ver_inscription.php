@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	require_once('./utilitaires/MyPdo.service.php');
 	try {
 		// récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
@@ -28,6 +29,8 @@
 			$reqPreparee = $connexion->prepare("INSERT INTO `TBL_CLIENT`(`NOM_PRENOM`, `ADRESSE`, `ID_VILLE`, `EMAIL`, `PASSWORD`, `OPTIN`) VALUES (?,?,?,?,?,?)");
 			// exécute la requête préparée avec les informations récupérées depuis le formulaire HTML
 			$reqPreparee->execute(array($_POST['nom'],$_POST['adresse'],$idVille,strtolower(trim($_POST['email'])),$_POST['motdepasse'],$date->format('Y-m-d H:i:s')));
+			// enregistre le nom de l'utilisateur dans une variable de session
+			$_SESSION['utilisateur'] = $_POST['nom'];
 			// redirige vers l'eshop
 			header('Location: ./eshop.php');
 		}

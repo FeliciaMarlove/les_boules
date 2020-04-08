@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>E-shop de boules de Noël</title>
     <?php
+        session_start();
+        echo "<p>".$_SESSION['utilisateur']."</p>";
         require_once('./utilitaires/MyPdo.service.php');
         require_once('./utilitaires/LoadBoules.service.php');
         try {
