@@ -18,8 +18,8 @@
             Total :
             <bdi id="cartSomme"></bdi> €
         </div>
-
     </div>
+    <button class="deco" onclick="window.location.href = 'utilitaires/deconnexion.php'">Déconnexion</button>
     <div class="tableContainer">
         <div id="articles" class="articles"></div>
     </div>
@@ -29,7 +29,7 @@
 <?php
         session_start();
         $nom = $_SESSION['utilisateur'];
-        echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; // ) missing ??
+        echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; 
         require_once('./utilitaires/MyPdo.service.php');
         require_once('./utilitaires/LoadBoules.service.php');
         try {

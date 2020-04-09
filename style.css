@@ -16,12 +16,18 @@
   font-size: 20px;
 }
 
+.deco {
+  max-width: 100px;
+  max-height: 20px;
+  grid-area: dc;
+}
+
 .topShop {
     grid-area: ts;
     display: grid;
     grid-template-columns: 2fr 2fr 0.5fr 1fr 0.5fr;
     grid-template-areas:
-        " bj . i t .";
+        " bj dc i t .";
 }
 
 #cartIcon {
@@ -73,14 +79,13 @@
     display: grid;
     grid-template-areas:
         " ts ts ts"
+        "dc dc dc"
         " tc tc tc";
 }
 
 body {
     font-family: Verdana;
     font-size: 14px;
-    /*background-image: url("ball.jpg");
-     background-size: cover;*/
     background-color: brown;
 }
 
