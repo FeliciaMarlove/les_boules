@@ -64,11 +64,11 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
             " t t t t "
-            " . . . . "
             " . f f . "
             " . f f . "
             " . f f . "
-            " . . . . ";
+            " . f f . "
+            " . f f . ";
 }
 
 .empty {
@@ -79,7 +79,7 @@
     display: grid;
     grid-template-areas:
         " ts ts ts"
-        "dc dc dc"
+        " dc dc dc"
         " tc tc tc";
 }
 
@@ -106,6 +106,7 @@ h2 {
 .bandeau {
     background-color: maroon;
     grid-area: t;
+    height: 140px;
 }
 
 .tip {
@@ -150,7 +151,7 @@ h2 {
     }
 }
 
-/*styles pour la liste dynamique des localités*/
+/* STYLES POUR LA LISTE DE LOCALITÉS */
 
 .autocomplete {
   position: relative;
