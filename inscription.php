@@ -126,7 +126,7 @@
                     }
                     </script>"; 
         } catch(PDOException $e) {
-            exit("Erreur BD : ".$e->getMessage());
+            exit("Problème de BD : ".$e->getMessage());
         } catch (Exception $e) {
             exit("Le site a rencontré un problème : ".$e->getMessage());
         } finally {

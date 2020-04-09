@@ -17,6 +17,8 @@
             <br>
             Total :
             <bdi id="cartSomme"></bdi> €
+            <br><br>
+            <button id="valider" onclick="valider()">Valider</button>
         </div>
     </div>
     <button class="deco" onclick="window.location.href = 'utilitaires/deconnexion.php'">Déconnexion</button>
@@ -29,6 +31,7 @@
 <?php
         session_start();
         $nom = $_SESSION['utilisateur'];
+        //$client = $_SESSION['client'];
         echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; 
         require_once('./utilitaires/MyPdo.service.php');
         require_once('./utilitaires/LoadBoules.service.php');
@@ -38,7 +41,7 @@
             // charger les boules dans la base de données si la table est vide
             $getBoules = LoadBoules::chargerXML('https://www.zeus2025.be/exe/boutique.xml');
         } catch(PDOException $e) {
-            exit("Erreur ouverture BD : ".$e->getMessage());
+            exit("Problème de BD : ".$e->getMessage());
         } catch (Exception $e) {
             exit("Le site a rencontré un problème : ".$e->getMessage());
         } finally {

@@ -16,7 +16,7 @@ require_once('./utilitaires/MyPdo.service.php');
             // retourne le fichier JSON des villes selon le fichier sélectionné au fichier JavaScript qui a émis la requête Ajax
             echo $json;
         } catch(PDOException $e) {
-            exit("Erreur BD : ".$e->getMessage());
+            exit("Problème de BD : ".$e->getMessage());
         } catch (Exception $e) {
             exit("Le site a rencontré un problème : ".$e->getMessage());
         } finally {

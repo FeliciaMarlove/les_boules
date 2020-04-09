@@ -5,12 +5,21 @@ let balls = [];
 let collectionOfArticles;
 let ajouter;
 let xmlDoc;
+let commande = [];
+document.getElementById('valider').disabled = true;
 
 function addToCart(index) {
     let currentBall = document.getElementById("ball" + index);
+    // récupère l'ID
+    let pos = currentBall.innerHTML.search('hidden="true">');
+    let lgth = 'hidden="true">'.length;
+    let id = currentBall.innerHTML.substring(pos+lgth, pos+lgth+1);
+    commande.push(id);  
+    // 
     let prix = Number.parseFloat(currentBall.querySelector(".prixBoule").textContent);
     let stock = Number.parseInt(-- currentBall.querySelector(".stockBoule").textContent);
-    console.log(stock);
+    console.log('stock',stock);
+    document.getElementById('valider').disabled = false;
     cart += 1;
     somme += prix;
     let cartTotal = document.getElementById("cartTotal");
@@ -21,6 +30,29 @@ function addToCart(index) {
         currentBall.querySelector(".boutonAjout").disabled = true;
         currentBall.querySelector(".boutonAjout").textContent = "Article non disponible";
     }
+}
+
+function valider() {
+    if (window.XMLHttpRequest) {
+        xmlHttp = new XMLHttpRequest();
+    } else { // POUR INTERNET EXPLORER
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlHttp.open("POST", "val_panier.php", true);
+    xmlHttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText === true) {
+                window.alert("Commande enregistrée");
+                window.location.href = 'eshop.php';
+            } 
+        }
+    };
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    let strIds = '';
+    for(let i = 0 ; i < commande.length ; i++) {
+        strIds += ' ' + commande[i];
+    }
+    xmlHttp.send('commande='+JSON.stringify(strIds));
 }
 
 function domCreate () {
@@ -92,8 +124,7 @@ function readBoules() {
         }
     };
     xmlHttp.open("GET", "read_boules.php", true);
-    xmlHttp.responseType = "document"; // get response as XML document (can use XPath and other XML methods)
-
+    xmlHttp.responseType = "document"; // recevoir la réponse en document XML
     xmlHttp.send();
 }
 

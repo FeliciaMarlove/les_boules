@@ -21,6 +21,7 @@
 			$pwdCompare = $resultat->PASSWORD;
 			// si le mot de passe entré et le mot de passe en base de données sont égaux, enregistre le nom de l'utilisateur dans une variable de session et poursuit vers l'eshop
 			if ($pwdCompare === $mdp) {
+				$_SESSION['client'] = $resultat;
 				$_SESSION['utilisateur'] = $resultat->NOM_PRENOM;
 				header('Location: ./eshop.php');
 			} else {
@@ -32,7 +33,7 @@
 			}
 		}
 	} catch(PDOException $e) {
-		exit("Erreur BD : ".$e->getMessage());
+		exit("Problème de BD : ".$e->getMessage());
 	} catch (Exception $e) {
 		exit("Le site a rencontré un problème : ".$e->getMessage());
 	} finally {

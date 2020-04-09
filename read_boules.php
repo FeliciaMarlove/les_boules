@@ -40,7 +40,7 @@
     	// renvoie le XML créé suite à l'appel de la requête AJAX
 		echo $xml;
 	} catch(PDOException $e) {
-		exit("Erreur ouverture BD : ".$e->getMessage());
+		exit("Problème de BD : ".$e->getMessage());
 	} catch (Exception $e) {
 		exit("Le site a rencontré un problème : ".$e->getMessage());
 	} finally {
