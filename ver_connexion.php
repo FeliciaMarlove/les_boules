@@ -19,10 +19,11 @@
 			// récupère le mot de passe en base de données
 			$resultat = $reqPrepa->fetch($connexion::FETCH_OBJ);
 			$pwdCompare = $resultat->PASSWORD;
-			// si le mot de passe entré et le mot de passe en base de données sont égaux, enregistre le nom de l'utilisateur dans une variable de session et poursuit vers l'eshop
+			// si le mot de passe entré et le mot de passe en base de données sont égaux, enregistre le nom du client et son id dans des variables de session 
 			if ($pwdCompare === $mdp) {
-				$_SESSION['client'] = $resultat;
+				$_SESSION['client'] = $resultat->ID_CLIENT;
 				$_SESSION['utilisateur'] = $resultat->NOM_PRENOM;
+				// et poursuit vers l'eshop
 				header('Location: ./eshop.php');
 			} else {
 				//sinon on alerte l'utilisateur

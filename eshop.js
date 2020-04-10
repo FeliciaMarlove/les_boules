@@ -29,7 +29,7 @@ function addToCart(index) {
         currentBall.querySelector(".boutonAjout").disabled = true;
         currentBall.querySelector(".boutonAjout").textContent = "Article non disponible";
     }
-    console.log(commande)
+    // console.log(commande)
 }
 
 function valider() {

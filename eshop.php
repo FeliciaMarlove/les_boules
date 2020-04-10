@@ -31,7 +31,6 @@
 <?php
         session_start();
         $nom = $_SESSION['utilisateur'];
-        //$client = $_SESSION['client'];
         echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; 
         require_once('./utilitaires/MyPdo.service.php');
         require_once('./utilitaires/LoadBoules.service.php');

@@ -1,8 +1,9 @@
 <?php
         session_start();
         require_once('./utilitaires/MyPdo.service.php');
-        $client = $_SESSION['client'];
+        $idclient = $_SESSION['client'];
         $post = json_decode($_POST['commande']);
+        $date = new DateTime();
         $aEnregistrer = [];
         // récupère les id du string pour en faire un tableau de strings séparés / array_filter permet d'ignorer les espaces en début et fin de chaîne
         $idBoulesCommandees = array_filter(explode(" ", $post));
@@ -26,25 +27,36 @@
             if($toAdd === true) {
                 // ajout dans la table comme nouvelle boule avec une quantité de 1
                 $aEnregistrer[] = new Boule($idBoulesCommandees[$i]); 
-                
             }
         }
-        var_dump($aEnregistrer);
-
-        
-        // enregistrement en BD
-
-
         try {
             // récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
             $connexion = MyPdo::getInstance();
-            // 
+            // récupère le dernier numéro de commande
+            $req = $connexion->query("SELECT MAX(NUM_COMMANDE) FROM TBL_COMMANDE");
+            $num = $req->fetchColumn();
+            // récupère l'année courante
+            $annee = $date->format('yy');
+            $numCommande = '';
+            if ($num === null) {
+                // s'il n'y a pas de commande dans la BD, commence une série
+                $numCommande = $annee.'00001';
+            } elseif (substr($num,0,4) === $annee) {
+                // si le dernier numéro de commande est de l'année en cours, prend la valeur et incrémente de 1 pour créer le prochain numéro
+                $x = substr($num, 5) + 1;
+                // str_pad permet de remplir de '0' à gauche pour correspondre à la longueur demandée (5)
+                $numCommande = $annee.'-'.str_pad($x, 5, 0, STR_PAD_LEFT);
+            } else {
+                // si le dernier numéro de commande n'est pas de l'année courante, on commence une série
+                $numCommande = $annee.'-'.'00001';
+            }
+            $reqCmd = $connexion->prepare("INSERT INTO TBL_COMMANDE (NUM_COMMANDE, DATE_COMMANDE, ID_CLIENT) VALUES (?,?,?)");
+            $reqCmd->execute(array($numCommande, $date->format('Y-m-d H:i:s'), $idclient));
             // echo "true"; // check en JS
         } catch(PDOException $e) {
-            exit("Problème de BD : ".$e->getMessage());
-            echo false;
+            echo "Problème de BD : ".$e->getMessage();
         } catch (Exception $e) {
-            exit("Le site a rencontré un problème : ".$e->getMessage());
+            echo "Le site a rencontré un problème : ".$e->getMessage();
         } finally {
             $connexion = null;
         }
