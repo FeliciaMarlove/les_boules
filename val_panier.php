@@ -38,6 +38,8 @@
             // récupère l'année courante
             $annee = $date->format('yy');
             $numCommande = '';
+            // démarre une transaction (pour assurer l'intégrité des données au niveau du stock)
+            $connexion->beginTransaction();
             if ($num === null) {
                 // s'il n'y a pas de commande dans la BD, commence une série
                 $numCommande = $annee.'00001';
@@ -52,8 +54,24 @@
             }
             $reqCmd = $connexion->prepare("INSERT INTO TBL_COMMANDE (NUM_COMMANDE, DATE_COMMANDE, ID_CLIENT) VALUES (?,?,?)");
             $reqCmd->execute(array($numCommande, $date->format('Y-m-d H:i:s'), $idclient));
-            // echo "true"; // check en JS
+            // récupère l'id de la commande créée
+            $idCmd = $connexion->lastInsertId();
+            // prépare la requête pour insérer les articles en base de données
+            $reqDetail = $connexion->prepare("INSERT INTO `TBL_DETAIL_CMD`(`ID_CMD`, `ID_ARTICLE`, `QTE`) VALUES (".$idCmd.",?,?)");
+            // prépare la requête pour adapter le stock des articles en base de données
+            $reqStock = $connexion->prepare("UPDATE `TBL_ARTICLE` SET `STOCK_ARTICLE`= STOCK_ARTICLE - ? WHERE ID_ARTICLE = ?");
+            // exécute les requêtes préparées pour chaque article dans le tableau "à enregistrer"
+            for($b = 0 ; $b < count($aEnregistrer) ; $b++) {
+                $reqDetail->execute(array($aEnregistrer[$b]->getId(),$aEnregistrer[$b]->getQte()));
+                $reqStock->execute(array($aEnregistrer[$b]->getQte(), $aEnregistrer[$b]->getId()));
+            }
+
+            echo "true";
+            // affecte en base de données les actions depuis "beginTransaction"
+            $connexion->commit();
         } catch(PDOException $e) {
+            // les changements depuis "beginTransaction" ne sont pas effectués
+            $connexion->rollBack();
             echo "Problème de BD : ".$e->getMessage();
         } catch (Exception $e) {
             echo "Le site a rencontré un problème : ".$e->getMessage();
@@ -77,6 +95,10 @@
 
             function getId() {
                 return $this->id;
+            }
+
+            function getQte() {
+                return $this->qte;
             }
             
         }
