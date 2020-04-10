@@ -41,7 +41,7 @@ function valider() {
     xmlHttp.open("POST", "val_panier.php", true);
     xmlHttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText === true) {
+            if (this.responseText === "true") {
                 window.alert("Commande enregistrée");
                 window.location.href = 'eshop.php';
             } 
