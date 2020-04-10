@@ -15,7 +15,6 @@ function addToCart(index) {
     let lgth = 'hidden="true">'.length;
     let id = currentBall.innerHTML.substring(pos+lgth, pos+lgth+1);
     commande.push(id);  
-    // 
     let prix = Number.parseFloat(currentBall.querySelector(".prixBoule").textContent);
     let stock = Number.parseInt(-- currentBall.querySelector(".stockBoule").textContent);
     console.log('stock',stock);
@@ -30,6 +29,7 @@ function addToCart(index) {
         currentBall.querySelector(".boutonAjout").disabled = true;
         currentBall.querySelector(".boutonAjout").textContent = "Article non disponible";
     }
+    console.log(commande)
 }
 
 function valider() {
@@ -50,7 +50,7 @@ function valider() {
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     let strIds = '';
     for(let i = 0 ; i < commande.length ; i++) {
-        strIds += ' ' + commande[i];
+        strIds += commande[i] + ' ';
     }
     xmlHttp.send('commande='+JSON.stringify(strIds));
 }
