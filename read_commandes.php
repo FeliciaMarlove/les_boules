@@ -31,7 +31,7 @@
 	            	}
 	            	$cdes.="<h4 class='ligne'><div class='sec1'>Commande "
 	            			.$commande['NUM_COMMANDE']."</div>  <div class='sec2'>"
-	            			.$commande['DATE_COMMANDE']."</div><div class='sec3'>"
+	            			.date_format(new DateTime($commande['DATE_COMMANDE']), 'd/m/yy')."</div><div class='sec3'>"
 	            			.strval($total)
 	            			." €</div></h4><br> ";
 	            	foreach ($lignes as $ligne) {
