@@ -4,8 +4,7 @@
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>E-shop de boules de Noël</title>
-    
+    <title>E-shop de boules de Noël</title>   
 </head>
 <body onload="readBoules()" class="bodyShop">
 	<div class="bandeau">
@@ -52,4 +51,4 @@
         } finally {
             $connexion = null;
         }
-    ?>
+?>

@@ -45,14 +45,14 @@ h2 {
         " tc tc tc";
 }
 
-/*.bodyOrders {
+.bodyOrders {
    display: grid;
     grid-template-areas:
         " t t t"
         " ts ts ts"
         " sb sb sb"
-        " tc tc tc";
-}*/
+        " cds cds cds";
+}
 
 #secbuttons {
     margin-top: 15px;
@@ -78,6 +78,10 @@ h2 {
 }
 
 /*CONTENUS*/
+
+#commandesread {
+  grid-area: cds;
+}
 
 .formulaire {
     font-weight: bold;
