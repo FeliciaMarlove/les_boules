@@ -32,7 +32,7 @@
 	            	$cdes.="<h4 class='ligne'><div class='sec1'>Commande "
 	            			.$commande['NUM_COMMANDE']."</div>  <div class='sec2'>"
 	            			.date_format(new DateTime($commande['DATE_COMMANDE']), 'd/m/yy')."</div><div class='sec3'>"
-	            			.strval($total)
+	            			.strval(number_format($total, 2))
 	            			." €</div></h4><br> ";
 	            	foreach ($lignes as $ligne) {
 	            		$idArt = $ligne['ID_ARTICLE'];
@@ -41,7 +41,7 @@
 	            		$link = '';
 	            		$link = $article['IMG_ARTICLE'];
 	            		$cdes.="<div class='ligne'><div class='sec1'><img height='35' width='35' src='".$link."'>&emsp;";
-	            		$cdes.=$article['DES_ARTICLE']."</div> <div class='sec2'>".$ligne['QTE']." pc.</div><div class='sec3'>".$article['PRIX_ARTICLE']." €</div></div><br>";
+	            		$cdes.=$article['DES_ARTICLE']."</div> <div class='sec2'>".$ligne['QTE']." pc.</div><div class='sec3'>".number_format($article['PRIX_ARTICLE'], 2)." €</div></div><br>";
 	            	}	
 	            	$cdes.='<hr>';
 	            	 
