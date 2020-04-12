@@ -1,88 +1,3 @@
-.formulaire {
-    font-weight: bold;
-    grid-area: f;
-    padding: 10px;
-    background-color: white;
-    opacity: 92%;
-}
-
-.tableContainer {
-    grid-area: tc;
-}
-
-#bonjour {
-  grid-area: bj;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.deco {
-  max-width: 100px;
-  max-height: 20px;
-  grid-area: dc;
-}
-
-.topShop {
-    grid-area: ts;
-    display: grid;
-    grid-template-columns: 2fr 2fr 0.5fr 1fr 0.5fr;
-    grid-template-areas:
-        " bj dc i t .";
-}
-
-#cartIcon {
-    grid-area: i;
-}
-
-#cartText {
-    grid-area: t;
-    font-weight: bold;
-}
-
-.articles {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    grid-area: tc;
-}
-
-.article {
-    flex-shrink: 1;
-    background-color: white;
-    text-align: center;
-    border-style: solid;
-    border-color: #1b1e21;
-    padding: 10px;
-    margin: 8px
-}
-
-.bodyHome {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-            " t t t t "
-            " . f f . "
-            " . f f . "
-            " . f f . "
-            " . f f . "
-            " . f f . ";
-}
-
-.empty {
-    grid-area: e;
-}
-
-.bodyShop {
-    display: grid;
-    grid-template-areas:
-        " ts ts ts"
-        " dc dc dc"
-        " tc tc tc";
-}
-
 body {
     font-family: Verdana;
     font-size: 14px;
@@ -98,6 +13,118 @@ h2 {
     color : white;
     font-size: 42px;
 }
+
+/*CONTAINERS*/
+.topShop {
+    grid-area: ts;
+    display: grid;
+    grid-template-columns: 2fr 2fr 0.5fr 1fr 0.5fr;
+    grid-template-areas:
+        " bj dc i t .";
+}
+
+.bodyHome {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+            " t t t t "
+            " . f f . "
+            " . f f . "
+            " . f f . "
+            " . f f . "
+            " . f f . ";
+}
+
+.bodyShop {
+    display: grid;
+    grid-template-areas:
+        " t t t"
+        " ts ts ts"
+        " sb sb sb"
+        " tc tc tc";
+}
+
+/*.bodyOrders {
+   display: grid;
+    grid-template-areas:
+        " t t t"
+        " ts ts ts"
+        " sb sb sb"
+        " tc tc tc";
+}*/
+
+#secbuttons {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    grid-area: sb;
+    display: grid;
+    grid-template-areas: 
+    "dc . .  . "
+    "dc .  . pc "
+    "dc .  . pc "
+}
+
+.articles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.tableContainer {
+    grid-area: tc;
+}
+
+/*CONTENUS*/
+
+.formulaire {
+    font-weight: bold;
+    grid-area: f;
+    padding: 10px;
+    background-color: white;
+    opacity: 92%;
+}
+
+#bonjour {
+  grid-area: bj;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.deco {
+  max-width: 100px;
+  max-height: 20px;
+  grid-area: dc;
+}
+
+.prece {
+  max-width: 200px;
+  max-height: 20px;
+  grid-area: pc;
+}
+
+#cartIcon {
+    grid-area: i;
+}
+
+#cartText {
+    margin-top: 7px;
+    grid-area: t;
+    font-weight: bold;
+}
+
+.article {
+    flex-shrink: 1;
+    background-color: white;
+    text-align: center;
+    border-style: solid;
+    border-color: #1b1e21;
+    padding: 10px;
+    margin: 8px
+}
+
 
 #local-option, .dropdown, input {
     text-align-all: right;
@@ -115,6 +142,8 @@ h2 {
     font-weight: normal;
     font-size: 12px;
 }
+
+/*RESPONSIVE*/
 
 @media (max-width: 640px) {
     body {

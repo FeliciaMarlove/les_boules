@@ -8,6 +8,9 @@
     
 </head>
 <body onload="readBoules()" class="bodyShop">
+	<div class="bandeau">
+        <h2>E-shop Les boules</h2>
+    </div>
     <div class="topShop" >
         <p id='bonjour'>Bienvenue </p>
         <img src="./images/shopping-cart.png" height="50px" width="50px" style="padding: 5px" id="cartIcon">
@@ -21,7 +24,10 @@
             <button id="valider" onclick="valider()">Valider</button>
         </div>
     </div>
-    <button class="deco" onclick="window.location.href = 'utilitaires/deconnexion.php'">Déconnexion</button>
+    <div id="secbuttons">
+    	 <button class="deco" onclick="window.location.href = 'utilitaires/deconnexion.php'">Déconnexion</button>
+   	 	 <button class="prece" onclick="window.location.href = 'commandes.php'">Commandes précédentes</button>
+    </div>
     <div class="tableContainer">
         <div id="articles" class="articles"></div>
     </div>
