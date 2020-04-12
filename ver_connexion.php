@@ -4,8 +4,8 @@
 	try {
 		// récupère une instance du Singleton MyPdo
 		$connexion = MyPdo::getInstance();
-		$email = $_POST['email'];
-		$mdp = $_POST['motdepasse'];
+		$email = htmlspecialchars($_POST['email']);
+		$mdp = htmlspecialchars($_POST['motdepasse']);
 		// récupère l'utilisateur sur base de l'e-mail
 		$reqPrepa = $connexion->prepare("SELECT * FROM TBL_CLIENT WHERE EMAIL = ?");
 		$reqPrepa->execute(array($email));

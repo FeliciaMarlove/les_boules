@@ -31,7 +31,7 @@ function doValidateForm() {
     for (let i = 0; i < allTips.length; i++) {
         allTips.item(i).innerHTML = '';
     }
-    if (!(doCheckEmail() && doCheckName() && doCheckPwd() && doCheckAddress() && doCheckConditions() && doCheckLocality())) {
+    if (!(doCheckEmail() && doCheckName() && doCheckPwd() && doCheckAddress() && doCheckConditions() && doCheckLocality() && doCheckPwd2())) {
         showMistakes(); event.preventDefault();
     }
 }
@@ -55,7 +55,7 @@ function showMistakes() {
     if (!doCheckAddress()) {
         document.getElementById('tip-adresse').innerHTML = 'Veuillez entrer votre adresse';
     }
-    if (!doMockupLogin()) {
+    if (!doCheckPwd2()) {
         document.getElementById('tip-pwd2').innerHTML = 'Le mot de passe doit être identique';
     }
     if (!doCheckCountry()) {
