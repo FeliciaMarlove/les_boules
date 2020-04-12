@@ -17,18 +17,20 @@
     	 <button class="deco" onclick="window.location.href = 'utilitaires/deconnexion.php'">Déconnexion</button>
    	 	 <button class="prece" onclick="window.location.href = 'eshop.php'">Retour à la boutique</button>
     </div>
-    <div id="commandesread">
-        
-        
-    </div>
+    <div id="commandesread"> </div>
 </body>
-<!-- <script src=".js"></script> -->
 </html>
 <?php
         session_start();
         $nom = $_SESSION['utilisateur'];
+        // s'il n'y a pas d'utilisateur connecté on ne peut pas afficher la page et on retourne sur la page de connexion
+        if ($nom === null) { header('Location: connexion.php'); exit(); }
+        // affiche le nom du client connecté
         echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; 
+        // inclut le script qui fait la lecture en base de données
         include_once('read_commandes.php');
+        // récupère l'id du client connecté dans la variable de session
         $idClient = $_SESSION['client'];
+        // appelle la fonction readCdes du fichier read_commandes.php en lui passant l'id du client connecté en paramètre
         readCdes($idClient);
 ?>
