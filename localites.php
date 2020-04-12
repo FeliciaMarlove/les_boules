@@ -1,6 +1,7 @@
 <?php
 require_once('./utilitaires/MyPdo.service.php');
         try {
+            // récupère une instance du Singleton MyPdo
             $connexion = MyPdo::getInstance();
             // récupère le code pays depuis la requête Ajax du fichier JavaScript
             $cde_pays = $_GET['code'];
@@ -13,7 +14,7 @@ require_once('./utilitaires/MyPdo.service.php');
             }
             // convertit le tableau en JSON
             $json = json_encode($villes);
-            // retourne le fichier JSON des villes selon le fichier sélectionné au fichier JavaScript qui a émis la requête Ajax
+            // retourne le fichier JSON des villes selon le pays sélectionné au JavaScript qui a émis la requête Ajax
             echo $json;
         } catch(PDOException $e) {
             exit("Problème de BD : ".$e->getMessage());

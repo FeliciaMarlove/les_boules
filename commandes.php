@@ -22,12 +22,13 @@
 </html>
 <?php
         session_start();
+        // récupère le nom de l'utilisateur depuis les variables de session
         $nom = $_SESSION['utilisateur'];
         // s'il n'y a pas d'utilisateur connecté on ne peut pas afficher la page et on retourne sur la page de connexion
         if ($nom === null) { header('Location: connexion.php'); exit(); }
         // affiche le nom du client connecté
         echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; 
-        // inclut le script qui fait la lecture en base de données
+        // inclut le script qui lit les commandes passées par le client depuis la base de données
         include_once('read_commandes.php');
         // récupère l'id du client connecté dans la variable de session
         $idClient = $_SESSION['client'];

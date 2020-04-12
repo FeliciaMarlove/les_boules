@@ -2,14 +2,14 @@
 	session_start();
 	require_once('./utilitaires/MyPdo.service.php');
 	try {
-		// récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+		// récupère une instance du Singleton MyPdo
 		$connexion = MyPdo::getInstance();
 		$email = $_POST['email'];
 		$mdp = $_POST['motdepasse'];
 		// récupère l'utilisateur sur base de l'e-mail
 		$reqPrepa = $connexion->prepare("SELECT * FROM TBL_CLIENT WHERE EMAIL = ?");
 		$reqPrepa->execute(array($email));
-		// si la requête ne retourne pas de résultat, l'utilisateur n'existe pas et on arrête le traitement
+		// si la requête ne retourne pas de résultat, l'utilisateur n'existe pas et on arrête le traitement (rechargement de la page)
 		if ($reqPrepa->rowCount() === 0) {
 			echo '<script type="text/javascript">';
 			echo 'alert("Aucun compte n\'est associé à cette adresse e-mail, veuillez créer un compte")';
@@ -26,11 +26,11 @@
 				// et poursuit vers l'eshop
 				header('Location: ./eshop.php');
 			} else {
-				//sinon on alerte l'utilisateur
+				//sinon on alerte l'utilisateur (la page est rechargée)
 				echo '<script type="text/javascript">';
-			echo 'alert("Mot de passe incorrect")';
-			echo '</script>';
-			echo '<script type="text/javascript"> window.location = \'./connexion.php\'; </script>';
+				echo 'alert("Mot de passe incorrect")';
+				echo '</script>';
+				echo '<script type="text/javascript"> window.location = \'./connexion.php\'; </script>';
 			}
 		}
 	} catch(PDOException $e) {

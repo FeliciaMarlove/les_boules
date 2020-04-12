@@ -95,9 +95,9 @@
 <?php
         require_once('./utilitaires/MyPdo.service.php');
         try {
-            // récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+            // récupère une instance du Singleton MyPdo
             $connexion = MyPdo::getInstance();
-            // récupère la table des pays dans la BD
+            // récupère la table des pays dans la base de données
             $pays_table = $connexion->query("SELECT * FROM TBL_PAYS");
             $pays = array();
             // remplit un tableau avec les enregistrements de la DB
@@ -106,7 +106,7 @@
             }
             // crée un fichier JSON depuis le tableau
             $json = json_encode($pays);
-            // script JavaScript pour créer la liste déroulante dynamiquement en fonction du contenu JSON
+            // script JavaScript pour créer la liste déroulante en fonction du contenu du JSON
             echo "<script type='text/javascript'>
                     const defautChoixPays = 'Choisissez votre pays dans la liste';
                     let pays_l = document.getElementById('country');

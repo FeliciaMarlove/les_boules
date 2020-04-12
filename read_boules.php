@@ -1,7 +1,7 @@
 <?php 
 	require_once('./utilitaires/MyPdo.service.php');
 	try {
-		// récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+		// récupère une instance du Singleton MyPdo 
 		$connexion = MyPdo::getInstance();
 		// récupère les articles dans la base de données
 		$boules_table = $connexion->prepare("SELECT * FROM TBL_ARTICLE");

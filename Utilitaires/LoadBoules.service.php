@@ -5,10 +5,10 @@ class LoadBoules {
 	// méthode statique pour charger les articles depuis un fichier XML
 	public static function chargerXML($url) {
 		try {
-				// récupèrer une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+				// récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
 				$connexion = MyPdo::getInstance();
-				// récupère les enregistrements de la table TBL_ARTICLE en DB
-				$allBoules = $connexion->query("select * from TBL_ARTICLE");
+				// récupère les enregistrements de la table TBL_ARTICLE en base de données
+				$allBoules = $connexion->query("SELECT * FROM TBL_ARTICLE");
 				// récupère le nombre d'enregistrements (lignes)
 				$nbrEnregistrements = $allBoules->rowCount();
 				// s'il n'y a pas d'articles dans la table, importer les articles depuis le fichier xml

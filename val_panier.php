@@ -30,7 +30,7 @@
             }
         }
         try {
-            // récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+            // récupère une instance du Singleton MyPdo
             $connexion = MyPdo::getInstance();
             // récupère le dernier numéro de commande
             $req = $connexion->query("SELECT MAX(NUM_COMMANDE) FROM TBL_COMMANDE");
@@ -65,7 +65,6 @@
                 $reqDetail->execute(array($aEnregistrer[$b]->getId(),$aEnregistrer[$b]->getQte()));
                 $reqStock->execute(array($aEnregistrer[$b]->getQte(), $aEnregistrer[$b]->getId()));
             }
-
             echo "true";
             // affecte en base de données les actions depuis "beginTransaction"
             $connexion->commit();

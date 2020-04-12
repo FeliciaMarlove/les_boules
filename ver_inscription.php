@@ -2,7 +2,7 @@
 	session_start();
 	require_once('./utilitaires/MyPdo.service.php');
 	try {
-		// récupère une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+		// récupère une instance du Singleton MyPdo
 		$connexion = MyPdo::getInstance();
 		// vérifie que l'email récupéré du formulaire n'est pas déjà enregistré en base de données
 		$email = $_POST['email'];

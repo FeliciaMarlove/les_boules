@@ -35,16 +35,18 @@
 </html>
 <?php
         session_start();
+        // récupère le nom de l'utilisateur dans une variable de session
         $nom = $_SESSION['utilisateur'];
         // s'il n'y a pas d'utilisateur connecté on ne peut pas afficher la page et on retourne sur la page de connexion
         if ($nom === null) { header('Location: connexion.php'); exit(); }
+        // affiche le nom de l'utilisateur
         echo "<script>document.getElementById('bonjour').append('".$nom."')</script>"; 
         require_once('./utilitaires/MyPdo.service.php');
         require_once('./utilitaires/LoadBoules.service.php');
         try {
-            // récupérer une instance du Singleton MyPdo pour avoir une seule connexion à la DB
+            // récupère une instance du Singleton MyPdo
             $connexion = MyPdo::getInstance();
-            // charger les boules dans la base de données si la table est vide
+            // charge les boules dans la base de données si la table est vide
             $getBoules = LoadBoules::chargerXML('https://www.zeus2025.be/exe/boutique.xml');
         } catch(PDOException $e) {
             exit("Problème de BD : ".$e->getMessage());
