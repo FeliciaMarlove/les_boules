@@ -32,19 +32,15 @@
 	            			.$commande['NUM_COMMANDE']." "
 	            			.$commande['DATE_COMMANDE']." "
 	            			.strval($total)
-	            			." €</h4><br>";
+	            			." €</h4><br> ";
 	            	foreach ($lignes as $ligne) {
 	            		$idArt = $ligne['ID_ARTICLE'];
 	            		$reqArticle->execute(array($idArt));
 	            		$article = $reqArticle->fetch(); 
-	            		$cdes.="
-								<img src='".$article['IMG_ARTICLE']."'> 
-								" 
-	            				.$article['DES_ARTICLE']." "
-	            				.$ligne['QTE']." "
-	            				.$article['PRIX_ARTICLE']
-	            				."<br>"
-	            				;
+	            		$link = '';
+	            		$link = $article['IMG_ARTICLE'];
+	            		$cdes.="<img src='".$link."'>"; // <img src='https://www.zeus2025.be/exe/img/a2.png'>
+	            		$cdes.=$article['DES_ARTICLE']." ".$ligne['QTE']." ".$article['PRIX_ARTICLE']."<br>";
 	            	}	
 	            	$cdes.='<hr>';
 	            	 
@@ -52,7 +48,7 @@
 	            }
             }
            
-            echo "<script>document.getElementById('commandesread').innerHTML = '".$cdes."'</script>";
+            echo "<script>document.getElementById('commandesread').innerHTML = '".addslashes(($cdes))."'</script>";
 
 
 	        } catch(PDOException $e) {
