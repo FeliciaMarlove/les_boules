@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>E-shop de boules de Noël</title> 
 </head>
-<body class="bodyShop">
+<body class="bodyOrders">
 	<div class="bandeau">
         <h2>E-shop Les boules</h2>
     </div>
@@ -18,6 +18,7 @@
    	 	 <button class="prece" onclick="window.location.href = 'eshop.php'">Retour à la boutique</button>
     </div>
     <div id="commandesread">
+        
         
     </div>
 </body>

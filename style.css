@@ -77,10 +77,30 @@ h2 {
     grid-area: tc;
 }
 
+.ligne {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template:
+  "un deux trois";
+}
+
 /*CONTENUS*/
 
 #commandesread {
   grid-area: cds;
+}
+
+.sec1 {
+  width: 450px;
+  grid-area: un;
+}
+
+.sec2 {
+  grid-area: deux;
+}
+
+.sec3 {
+  grid-area: trois;
 }
 
 .formulaire {

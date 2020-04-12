@@ -11,8 +11,9 @@
             $cdes = '';
             // s'il n'y a aucun résultat, le client n'a pas encore passé de commande 
             if (count($commandes) === 0) { 
-            	$cdes = "<h4>Aucune commande enregistrée</h4>"; 
+            	$cdes = "<h4 class='ligne'>Aucune commande enregistrée</h4>"; 
             } else {
+            	$cdes.="<h3>Vos commandes :</h3><br><br>";
             	 // prépare la requêtes pour récupérer les lignes de la commande
 	            $reqLignes = $connexion->prepare("SELECT * FROM TBL_DETAIL_CMD WHERE ID_CMD = ?");
 	            // prépare la requête pour récupérer l'article d'une ligne de commande
@@ -28,19 +29,19 @@
 	            		$article = $reqArticle->fetch();
 	            		$total += $qte * $article['PRIX_ARTICLE'];
 	            	}
-	            	$cdes.="<h4>Commande "
-	            			.$commande['NUM_COMMANDE']." "
-	            			.$commande['DATE_COMMANDE']." "
+	            	$cdes.="<h4 class='ligne'><div class='sec1'>Commande "
+	            			.$commande['NUM_COMMANDE']."</div>  <div class='sec2'>"
+	            			.$commande['DATE_COMMANDE']."</div><div class='sec3'>"
 	            			.strval($total)
-	            			." €</h4><br> ";
+	            			." €</div></h4><br> ";
 	            	foreach ($lignes as $ligne) {
 	            		$idArt = $ligne['ID_ARTICLE'];
 	            		$reqArticle->execute(array($idArt));
 	            		$article = $reqArticle->fetch(); 
 	            		$link = '';
 	            		$link = $article['IMG_ARTICLE'];
-	            		$cdes.="<img src='".$link."'>"; // <img src='https://www.zeus2025.be/exe/img/a2.png'>
-	            		$cdes.=$article['DES_ARTICLE']." ".$ligne['QTE']." ".$article['PRIX_ARTICLE']."<br>";
+	            		$cdes.="<div class='ligne'><div class='sec1'><img height='35' width='35' src='".$link."'>&emsp;";
+	            		$cdes.=$article['DES_ARTICLE']."</div> <div class='sec2'>".$ligne['QTE']." pc.</div><div class='sec3'>".$article['PRIX_ARTICLE']." €</div></div><br>";
 	            	}	
 	            	$cdes.='<hr>';
 	            	 
